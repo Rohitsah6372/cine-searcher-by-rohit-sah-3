@@ -2,6 +2,8 @@
   "errorWhileFetchinng": "Error while fetching data",
   "noDataToShow": "No data to show",
   "searchPlaceholder": "Search movies...",
+
+  "showMovieDetails": "View details",
   "movieDetails": {
     "title": "Title",
     "year": "Year",

@@ -25,7 +25,7 @@ const MovieCard = ({ movie }) => {
         </Typography>
         <Button
           className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 text-blue-700"
-          label={t("movieDetails")}
+          label={t("showMovieDetails")}
           style="tertiary"
         />
       </div>
