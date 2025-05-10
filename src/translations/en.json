@@ -1,0 +1,15 @@
+{
+  "errorWhileFetchinng": "Error while fetching data",
+  "noDataToShow": "No data to show",
+  "searchPlaceholder": "Search movies...",
+  "movieDetails": {
+    "title": "Title",
+    "year": "Year",
+    "type": "Type",
+    "imdbID": "IMDB ID"
+  },
+  "errors": {
+    "unauthorized": "Unauthorized access. Please check your API key.",
+    "unexpected": "An unexpected error occurred"
+  }
+}
