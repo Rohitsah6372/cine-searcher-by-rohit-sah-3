@@ -1,4 +1,4 @@
-import { DEFAULT_IMG_URL } from "components/contants";
+import { DEFAULT_IMG_URL } from "components/constants";
 import { useTranslation } from "react-i18next";
 
 const Image = ({ title, poster: posterUrl }) => {

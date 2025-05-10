@@ -1,7 +1,7 @@
-import { useTransition } from "react";
+import { useTranslation } from "react-i18next";
 
 const ErrorMessage = () => {
-  const { t } = useTransition();
+  const { t } = useTranslation();
 
   return (
     <div>
