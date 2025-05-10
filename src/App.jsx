@@ -1,24 +1,13 @@
-import "./App.css";
-// eslint-disable-next-line import/extensions
-import logo from "./logo.svg";
+import PageNotFound from "components/commons/PageNotFound";
+import Home from "components/Home";
+import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import routes from "routes";
 
 const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img alt="logo" className="App-logo" src={logo} />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+  <Switch>
+    <Route exact component={Home} path={routes.root} />
+    <Route component={PageNotFound} path="*" />
+  </Switch>
 );
 
 export default App;
