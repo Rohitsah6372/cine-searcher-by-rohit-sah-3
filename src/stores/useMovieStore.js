@@ -6,6 +6,9 @@ const useMoviesStore = create(
     set => ({
       selectedMovieId: null,
       moviesStore: [],
+      setMoviesStore: movies => set({ moviesStore: movies }),
+      setSelectedMovieId: id => set({ selectedMovieId: id }),
+      removeAll: () => set({ moviesStore: [] }),
       removeMovie: id =>
         set(({ moviesStore }) => {
           console.log("id from movie Store : ", id);
@@ -15,10 +18,6 @@ const useMoviesStore = create(
 
           return { moviesStore: updatedMoviesStore };
         }),
-      removeAll: () =>
-        set(() => ({
-          moviesStore: [],
-        })),
       toggleInMovie: movie =>
         set(({ moviesStore }) => {
           const found = moviesStore.some(

@@ -13,5 +13,23 @@
   "errors": {
     "unauthorized": "Unauthorized access. Please check your API key.",
     "unexpected": "An unexpected error occurred"
-  }
+  },
+  "pageNotFound": "Page Not Found",
+  "goBack": "Go Back",
+  "home": "Home",
+  "favourites": "Favourites",
+  "noMovieToShow": "No Movie to Show",
+  "trySearchingSomething": "Try searching something",
+  "removeFromFavourite": "Remove from Favourite",
+  "addToFavourite": "Add to Favourite",
+  "director": "Director",
+  "actor": "Actor",
+  "boxOffice": "Box Office",
+  "runtime": "Runtime",
+  "language": "Language",
+  "rated": "Rated",
+  "moviePosterAlt": "Movie Poster for {{title}}",
+  "viewHistoryTitle": "View History",
+  "clearAll": "Clear All",
+  "noHistoryAvailable": "No History Available"
 }
