@@ -26,6 +26,16 @@ const MovieDetails = ({ movieDetails }) => {
     imdbId,
   } = movieDetails || {};
 
+  const movieInfo = {
+    director,
+    actor: actors,
+    boxOffice: boxoffice,
+    year,
+    runtime,
+    language,
+    rated,
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center ">
@@ -66,42 +76,12 @@ const MovieDetails = ({ movieDetails }) => {
         <div className="col-span-2 space-y-4 text-gray-600">
           <Typography className="text-base leading-relaxed">{plot}</Typography>
           <div className="space-y-2">
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">
-                {t("director")}:
-              </span>{" "}
-              {director}
-            </Typography>
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">{t("actor")}:</span>{" "}
-              {actors}
-            </Typography>
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">
-                {t("boxOffice")}:
-              </span>{" "}
-              {boxoffice}
-            </Typography>
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">{t("year")}:</span>{" "}
-              {year}
-            </Typography>
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">
-                {t("runtime")}:
-              </span>{" "}
-              {runtime}
-            </Typography>
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">
-                {t("language")}:
-              </span>{" "}
-              {language}
-            </Typography>
-            <Typography className="text-sm">
-              <span className="font-semibold text-gray-800">{t("rated")}:</span>{" "}
-              {rated}
-            </Typography>
+            {Object.entries(movieInfo).map(([key, value]) => (
+              <Typography className="text-sm" key={key}>
+                <span className="font-semibold text-gray-800">{t(key)}:</span>{" "}
+                {value}
+              </Typography>
+            ))}
           </div>
         </div>
       </div>

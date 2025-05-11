@@ -15,7 +15,7 @@ const Image = ({ title, poster: posterUrl }) => {
   return (
     <img
       alt={t("moviePosterAlt", { title })}
-      className="h-40 w-40"
+      className="h-60 w-44"
       src={posterUrl}
       onError={handleImageError}
     />
