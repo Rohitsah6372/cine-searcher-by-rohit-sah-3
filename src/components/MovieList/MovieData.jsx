@@ -5,7 +5,7 @@ import { isEmpty } from "ramda";
 const MovieData = ({ movieList }) => (
   <div>
     {isEmpty(movieList) ? (
-      <div className="mt-8 flex h-full w-full flex-1 items-center justify-center pt-4">
+      <div className="outline-none mt-8 flex h-full w-full flex-1 items-center justify-center pt-4 shadow-none">
         <NoDataToShow />
       </div>
     ) : (
