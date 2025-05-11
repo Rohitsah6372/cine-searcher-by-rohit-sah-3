@@ -1,3 +1,6 @@
+import { createYearValidationSchema } from "constants";
+
+import { DEFAULT_PAGE_SIZE } from "components/constants";
 import { Form, Formik } from "formik";
 import { Close } from "neetoicons";
 import { Checkbox, Input, Typography } from "neetoui";
@@ -5,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
-import * as Yup from "yup";
 
 const FilterList = ({
   setYear,
@@ -18,31 +20,29 @@ const FilterList = ({
   const { t } = useTranslation();
   const history = useHistory();
 
-  const yearSchema = Yup.object().shape({
-    year: Yup.string()
-      .required(t("yearRequired"))
-      .matches(/^\d{4}$/, t("yearMustBeFourDigits"))
-      .test("year-range", t("yearMustBeValid"), value => {
-        if (!value) return false;
-        const year = parseInt(value);
-        const currentYear = new Date().getFullYear();
-
-        return year >= 1900 && year <= currentYear;
-      }),
-  });
+  const yearSchema = createYearValidationSchema(t);
 
   const updateUrlWithFilters = (year, movieType) => {
     const type =
-      movieType.Movie || movieType.Series
-        ? `${movieType.Movie ? "movie" : ""}${
-            movieType.Movie && movieType.Series ? "," : ""
-          }${movieType.Series ? "series" : ""}`
+      movieType.Movie && movieType.Series
+        ? "movie,series"
+        : !movieType.Movie && !movieType.Series
+        ? "movie,series"
+        : movieType.Movie
+        ? "movie"
+        : movieType.Series
+        ? "series"
         : undefined;
+
+    const currentUrl = new URL(window.location.href);
+    const currentPage = currentUrl.searchParams.get("page") || "1";
 
     history.replace(
       buildUrl(routes.root, {
         type,
         year: year || undefined,
+        page: currentPage,
+        pageSize: DEFAULT_PAGE_SIZE,
       })
     );
   };

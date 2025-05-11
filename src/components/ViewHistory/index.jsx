@@ -1,14 +1,23 @@
 import { useEffect, useRef } from "react";
 
 import { Typography } from "neetoui";
+import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
+import { shallow } from "zustand/shallow";
 
 import Item from "./Item";
 
 const ViewHistory = () => {
   const { t } = useTranslation();
-  const { moviesStore, selectedMovieId, removeAll } = useMoviesStore();
+  const { moviesStore, selectedMovieId, removeAll } = useMoviesStore(
+    state => ({
+      moviesStore: state.moviesStore,
+      selectedMovieId: state.selectedMovieId,
+      removeAll: state.removeAll,
+    }),
+    shallow
+  );
 
   const movieItemRefs = useRef({});
 
@@ -32,7 +41,7 @@ const ViewHistory = () => {
           {t("clearAll")}
         </Typography>
       </div>
-      {moviesStore.length > 0 ? (
+      {!isEmpty(moviesStore) ? (
         moviesStore
           .filter(Boolean)
           .map(({ title, imdbId }) => (

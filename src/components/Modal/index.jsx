@@ -4,12 +4,18 @@ import { ErrorMessage, PageLoader } from "components/commons";
 import { useShowMovie } from "hooks/useQuery/useMovieApi";
 import { Modal } from "neetoui";
 import useMoviesStore from "stores/useMovieStore";
+import { shallow } from "zustand/shallow";
 
 import MovieDetails from "./MovieDetails";
 
 const MovieModal = ({ id, setIsModalOpen }) => {
   const { data: movieDetails, isLoading, isError } = useShowMovie(id);
-  const { toggleInMovie } = useMoviesStore();
+  const { toggleInMovie } = useMoviesStore(
+    state => ({
+      toggleInMovie: state.toggleInMovie,
+    }),
+    shallow
+  );
 
   useEffect(() => {
     if (movieDetails) {
