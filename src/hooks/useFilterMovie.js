@@ -7,11 +7,11 @@ const usefilterMovie = (movieList, year, { Movie: movie, Series: series }) => {
     filteredList = movieList.filter(item => item.year === year);
   }
 
-  console.log("useFilte");
-
-  if (movie && !series) {
+  if (movie && series) {
+    return filteredList;
+  } else if (movie) {
     filteredList = filteredList.filter(item => item.type === "movie");
-  } else if (!movie && series) {
+  } else if (series) {
     filteredList = filteredList.filter(item => item.type === "series");
   }
 

@@ -11,7 +11,6 @@ const useMoviesStore = create(
       removeAll: () => set({ moviesStore: [] }),
       removeMovie: id =>
         set(({ moviesStore }) => {
-          console.log("id from movie Store : ", id);
           const updatedMoviesStore = moviesStore.filter(
             movie => movie.imdbId !== id
           );
@@ -29,7 +28,6 @@ const useMoviesStore = create(
             selectedMovieId: movie.imdbId,
           };
         }),
-      // clearSelectedMovieId: () => set({ selectedMovieId: null }),
     }),
     { name: "movie-store" }
   )

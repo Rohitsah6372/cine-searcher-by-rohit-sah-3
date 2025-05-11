@@ -1,7 +1,7 @@
 import PageNotFound from "components/commons/PageNotFound";
 import Favourites from "components/Favourites";
 import Home from "components/Home";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { Route, Switch } from "react-router-dom";
 import routes from "routes";
 
 const App = () => (

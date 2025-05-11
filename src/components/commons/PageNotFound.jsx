@@ -6,9 +6,9 @@ const PageNotFound = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="absolute left-1/3 top-1/3">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <Typography style="h1">{t("pageNotFound")}</Typography>
-      <Link to="/">
+      <Link className="mt-4" to="/">
         <Button label={t("goBack")} style="primary" />
       </Link>
     </div>

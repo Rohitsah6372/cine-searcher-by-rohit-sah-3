@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { shallow } from "zustand/shallow";
 
 const useFavouritStore = create(
   persist(
@@ -32,6 +33,7 @@ const useFavouritStore = create(
           ),
         })),
     }),
+    shallow,
     { name: "favourite-store" }
   )
 );
