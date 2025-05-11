@@ -31,5 +31,16 @@
   "moviePosterAlt": "Movie Poster for {{title}}",
   "viewHistoryTitle": "View History",
   "clearAll": "Clear All",
-  "noHistoryAvailable": "No History Available"
+  "noHistoryAvailable": "No History Available",
+  "filters": "Filters",
+  "yearRequired": "Year is required",
+  "yearMustBeFourDigits": "Year must be a 4-digit number",
+  "yearMustBeValid": "Year must be between 1900 and the current year",
+  "enterFourDigitYear": "Enter a 4-digit year",
+  "type": "Type",
+  "movie": "Movie",
+  "series": "Series",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "deleteConfirmation": "Are you sure you want to delete this item?"
 }
