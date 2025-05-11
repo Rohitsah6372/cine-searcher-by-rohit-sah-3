@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Input } from "@bigbinary/neetoui";
+import { Input, Pagination } from "@bigbinary/neetoui";
 import { ErrorMessage, PageLoader } from "components/commons";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/constants";
 import SearchBar from "components/SearchBar";
@@ -21,6 +21,7 @@ const MovieList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchKey = useDebounce(searchTerm);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isPageChanging, setIsPageChanging] = useState(false);
   const [year, setYear] = useState("");
   const [movieType, setMovieType] = useState({
     Movie: false,
@@ -93,12 +94,33 @@ const MovieList = () => {
   };
 
   const {
-    data: { search: movieList = [] } = {},
+    data: { search: movieList = [], totalResults: totalMovieCount } = {},
     isLoading,
     isError,
   } = useSearchedMovie(debouncedSearchKey, currentPageNumber);
 
-  if (isLoading) return <PageLoader />;
+  const handlePageNavigation = page => {
+    setIsPageChanging(true);
+    routerHistory.replace(
+      buildUrl(routes.root, {
+        page,
+        pageSize: DEFAULT_PAGE_SIZE,
+        type:
+          movieType.Movie || movieType.Series
+            ? `${movieType.Movie ? "movie" : ""}${
+                movieType.Movie && movieType.Series ? "," : ""
+              }${movieType.Series ? "series" : ""}`
+            : undefined,
+        year: year || undefined,
+      })
+    );
+
+    setTimeout(() => {
+      setIsPageChanging(false);
+    }, 400);
+  };
+
+  if (isLoading || isPageChanging) return <PageLoader />;
 
   if (isError) return <ErrorMessage />;
 
@@ -141,6 +163,14 @@ const MovieList = () => {
       </div>
       <div className="flex-1 overflow-y-auto px-4">
         <MovieData movieList={newMovieList} />
+      </div>
+      <div className="mb-12 flex items-center justify-center border-t-4 pt-1">
+        <Pagination
+          count={totalMovieCount}
+          navigate={page => handlePageNavigation(page)}
+          pageNo={currentPageNumber || DEFAULT_PAGE_INDEX}
+          pageSize={DEFAULT_PAGE_SIZE}
+        />
       </div>
     </div>
   );
