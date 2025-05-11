@@ -9,13 +9,11 @@ const MovieData = ({ movieList }) => (
         <NoDataToShow />
       </div>
     ) : (
-      // <div className="h-4/6 overflow-y-auto  px-2">
       <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {movieList.map(movie => (
           <MovieCard key={movie["imdbId"]} movie={movie} />
         ))}
       </div>
-      // </div>
     )}
   </div>
 );

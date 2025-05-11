@@ -34,12 +34,12 @@ const MovieDetails = ({ movieDetails }) => {
         </Typography>
         <Button
           icon={Rating}
-          style={isMoviePresentInFavourite(imdbId) ? "danger" : "tertiary"}
-          className={`ml-4 rounded-full p-2 ${
+          style="tertiary"
+          className={`ml-4 rounded-full bg-transparent p-2 ${
             isMoviePresentInFavourite(imdbId)
-              ? "bg-red-400 text-red-600"
-              : "bg-gray-100 text-gray-600"
-          } transition hover:bg-gray-200`}
+              ? " text-yellow-400"
+              : "text-gray-600"
+          } transition hover:bg-transparent`}
           tooltipProps={{
             content: t(
               isMoviePresentInFavourite(imdbId)
