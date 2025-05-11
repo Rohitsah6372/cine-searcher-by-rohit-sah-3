@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+import MovieModal from "components/Modal";
 import { Button, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 
@@ -5,8 +8,13 @@ import Image from "../commons/Image";
 
 const MovieCard = ({ movie }) => {
   const { t } = useTranslation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { title, year, poster, type } = movie;
+  const { imdbId, title, year, poster, type } = movie;
+
+  const handleClick = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="">
@@ -27,8 +35,12 @@ const MovieCard = ({ movie }) => {
           className="neeto-ui-cursor-pointer neeto-ui-text-center  neeto-ui-shadow-sm m-1 text-blue-700"
           label={t("showMovieDetails")}
           style="tertiary"
+          onClick={handleClick}
         />
       </div>
+      {isModalOpen && (
+        <MovieModal id={imdbId} setIsModalOpen={setIsModalOpen} />
+      )}
     </div>
   );
 };
