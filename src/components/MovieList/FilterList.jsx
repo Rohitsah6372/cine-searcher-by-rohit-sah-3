@@ -2,6 +2,9 @@ import { Form, Formik } from "formik";
 import { Close } from "neetoicons";
 import { Checkbox, Input, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import routes from "routes";
+import { buildUrl } from "utils/url";
 import * as Yup from "yup";
 
 const FilterList = ({
@@ -13,6 +16,7 @@ const FilterList = ({
   initialMovieType,
 }) => {
   const { t } = useTranslation();
+  const history = useHistory();
 
   const yearSchema = Yup.object().shape({
     year: Yup.string()
@@ -27,8 +31,24 @@ const FilterList = ({
       }),
   });
 
+  const updateUrlWithFilters = (year, movieType) => {
+    const type =
+      movieType.Movie || movieType.Series
+        ? `${movieType.Movie ? "movie" : ""}${
+            movieType.Movie && movieType.Series ? "," : ""
+          }${movieType.Series ? "series" : ""}`
+        : undefined;
+
+    history.replace(
+      buildUrl(routes.root, {
+        type,
+        year: year || undefined,
+      })
+    );
+  };
+
   return (
-    <div className="absolute right-4 top-16 z-50 w-96 transform rounded-xl bg-white p-6 shadow-lg transition-all duration-300">
+    <div className="outline-none w-full transform rounded-xl bg-white p-6 transition-all duration-300">
       <div className="mb-6 flex items-center justify-between border-b border-gray-100 pb-4">
         <Typography className="text-xl font-bold text-gray-800">
           {t("filters")}
@@ -48,6 +68,7 @@ const FilterList = ({
         onSubmit={values => {
           setYear(values.year);
           onFilterChange(values.year, initialMovieType);
+          updateUrlWithFilters(values.year, initialMovieType);
         }}
       >
         {({ values, errors, handleChange, handleBlur }) => (
@@ -68,6 +89,7 @@ const FilterList = ({
                       handleChange(e);
                       setYear(value);
                       onFilterChange(value, initialMovieType);
+                      updateUrlWithFilters(value, initialMovieType);
                     }
                   }}
                 />
@@ -87,6 +109,7 @@ const FilterList = ({
                       };
                       setMovieType(newMovieType);
                       onFilterChange(values.year, newMovieType);
+                      updateUrlWithFilters(values.year, newMovieType);
                     }}
                   />
                   <Checkbox
@@ -99,6 +122,7 @@ const FilterList = ({
                       };
                       setMovieType(newMovieType);
                       onFilterChange(values.year, newMovieType);
+                      updateUrlWithFilters(values.year, newMovieType);
                     }}
                   />
                 </div>

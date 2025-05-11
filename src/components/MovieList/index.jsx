@@ -11,26 +11,21 @@ import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-import FilterList from "./FilterList";
 import MovieData from "./MovieData";
 
 const MovieList = ({
   searchTerm,
   currentPageNumber,
   setCurrentPageNumber,
-  isFilterOpen,
-  setIsFilterOpen,
+
+  year,
+  movieType,
 }) => {
   const [isPageChanging, setIsPageChanging] = useState(false);
-  const [year, setYear] = useState("");
-  const [movieType, setMovieType] = useState({
-    Movie: false,
-    Series: false,
-  });
 
   const debouncedSearchKey = useDebounce(searchTerm);
 
-  const { page = DEFAULT_PAGE_INDEX, type, year: yearParam } = useQueryParams();
+  const { page = DEFAULT_PAGE_INDEX } = useQueryParams();
   const routerHistory = useHistory();
 
   useEffect(() => {
@@ -38,40 +33,6 @@ const MovieList = ({
       setCurrentPageNumber(Number(page));
     }
   }, [page, setCurrentPageNumber]);
-
-  useEffect(() => {
-    if (type) {
-      const types = type.split(",");
-      setMovieType({
-        Movie: types.includes("movie"),
-        Series: types.includes("series"),
-      });
-    }
-  }, [type]);
-
-  useEffect(() => {
-    if (yearParam) {
-      setYear(yearParam);
-    }
-  }, [yearParam]);
-
-  const handleFilterChange = (newYear, newMovieType) => {
-    const types = [];
-    if (newMovieType.Movie) types.push("movie");
-
-    if (newMovieType.Series) types.push("series");
-
-    const queryParams = {
-      page: DEFAULT_PAGE_INDEX,
-      pageSize: DEFAULT_PAGE_SIZE,
-    };
-
-    if (types.length > 0) queryParams.type = types.join(",");
-
-    if (newYear) queryParams.year = newYear;
-
-    routerHistory.replace(buildUrl(routes.root, queryParams));
-  };
 
   const {
     data: { search: movieList = [], totalResults: totalMovieCount } = {},
@@ -107,26 +68,14 @@ const MovieList = ({
   if (isError) return <ErrorMessage />;
 
   return (
-    <div className="relative flex h-screen flex-col bg-gradient-to-br from-gray-50 to-gray-100">
-      <div>
-        {isFilterOpen && (
-          <FilterList
-            initialMovieType={movieType}
-            initialYear={year}
-            setIsFilterOpen={setIsFilterOpen}
-            setMovieType={setMovieType}
-            setYear={setYear}
-            onFilterChange={handleFilterChange}
-          />
-        )}
-      </div>
-      <div className="flex-1 overflow-y-auto px-4">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden">
+      <div className="flex-1 overflow-y-auto rounded-md bg-white px-6 py-4 shadow">
         <MovieData movieList={newMovieList} />
       </div>
-      <div className="mb-12 flex items-center justify-center border-t-4 pt-1">
+      <div className="border-t bg-white px-4 py-3 shadow">
         <Pagination
           count={totalMovieCount}
-          navigate={page => handlePageNavigation(page)}
+          navigate={handlePageNavigation}
           pageNo={currentPageNumber || DEFAULT_PAGE_INDEX}
           pageSize={DEFAULT_PAGE_SIZE}
         />
