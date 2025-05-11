@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { Input, Pagination } from "@bigbinary/neetoui";
+import { Pagination } from "@bigbinary/neetoui";
 import { ErrorMessage, PageLoader } from "components/commons";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "components/constants";
-import SearchBar from "components/SearchBar";
 import useDebounce from "hooks/useDebounce";
-import usefilterMovie from "hooks/useFilterMovie";
+import useFilterMovie from "hooks/useFilterMovie";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
-import { Filter, Search } from "neetoicons";
-import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
@@ -17,10 +14,13 @@ import { buildUrl } from "utils/url";
 import FilterList from "./FilterList";
 import MovieData from "./MovieData";
 
-const MovieList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchKey = useDebounce(searchTerm);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+const MovieList = ({
+  searchTerm,
+  currentPageNumber,
+  setCurrentPageNumber,
+  isFilterOpen,
+  setIsFilterOpen,
+}) => {
   const [isPageChanging, setIsPageChanging] = useState(false);
   const [year, setYear] = useState("");
   const [movieType, setMovieType] = useState({
@@ -28,21 +28,16 @@ const MovieList = () => {
     Series: false,
   });
 
-  const [currentPageNumber, setCurrentPageNumber] =
-    useState(DEFAULT_PAGE_INDEX);
-
-  const { t } = useTranslation();
+  const debouncedSearchKey = useDebounce(searchTerm);
 
   const { page = DEFAULT_PAGE_INDEX, type, year: yearParam } = useQueryParams();
-
   const routerHistory = useHistory();
-  const autoInputRef = useRef(null);
 
   useEffect(() => {
     if (page) {
       setCurrentPageNumber(Number(page));
     }
-  }, [page]);
+  }, [page, setCurrentPageNumber]);
 
   useEffect(() => {
     if (type) {
@@ -59,21 +54,6 @@ const MovieList = () => {
       setYear(yearParam);
     }
   }, [yearParam]);
-
-  useEffect(() => {
-    const handleKeyDown = event => {
-      if (event.key === "/") {
-        event.preventDefault();
-        autoInputRef.current?.focus();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
   const handleFilterChange = (newYear, newMovieType) => {
     const types = [];
@@ -98,6 +78,8 @@ const MovieList = () => {
     isLoading,
     isError,
   } = useSearchedMovie(debouncedSearchKey, currentPageNumber);
+
+  const newMovieList = useFilterMovie(movieList, year, movieType);
 
   const handlePageNavigation = page => {
     setIsPageChanging(true);
@@ -124,31 +106,8 @@ const MovieList = () => {
 
   if (isError) return <ErrorMessage />;
 
-  const newMovieList = usefilterMovie(movieList, year, movieType);
-
   return (
     <div className="relative flex h-screen flex-col bg-gradient-to-br from-gray-50 to-gray-100">
-      <SearchBar
-        actionBlock={
-          <>
-            <Input
-              className="mx-2 rounded-md border-[#ddd] bg-white p-2"
-              placeholder={t("searchPlaceholder")}
-              prefix={<Search />}
-              ref={autoInputRef}
-              type="Search"
-              value={searchTerm}
-              onChange={e => {
-                setSearchTerm(e.target.value);
-                setCurrentPageNumber(DEFAULT_PAGE_INDEX);
-              }}
-            />
-            <button onClick={() => setIsFilterOpen(prev => !prev)}>
-              <Filter className="outline-none mr-1 border-none border-[#ddd] p-0.5 hover:text-green-700" />
-            </button>
-          </>
-        }
-      />
       <div>
         {isFilterOpen && (
           <FilterList
