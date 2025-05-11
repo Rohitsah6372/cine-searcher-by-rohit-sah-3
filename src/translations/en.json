@@ -43,5 +43,7 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "deleteConfirmation": "Delete - {{title}}",
-  "deleteWarning": "This action cannot be undone"
+  "deleteWarning": "This action cannot be undone",
+  "cine": "Cine",
+  "searcher": "Searcher"
 }
