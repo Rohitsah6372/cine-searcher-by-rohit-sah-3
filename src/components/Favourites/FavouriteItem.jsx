@@ -1,14 +1,16 @@
 import { Typography } from "neetoui";
 
 const FavouriteItem = ({ details }) => {
-  const { title, ratings: [{ value }] = [] } = details;
+  const { title, ratings } = details;
+  const value = ratings?.[0]?.value ?? "N/A";
 
   return (
-    <div className="m-2 flex justify-between rounded-lg border-4 border-blue-100 bg-white px-4 py-2 shadow-2xl">
-      <Typography className="flex-1 text-sm  font-medium">{title}</Typography>
-      <Typography className="flex w-1/4 justify-end text-sm text-gray-600  ">
-        <span className="font-medium">Rating : </span>
-        {value}
+    <div className="m-3 flex items-center justify-between rounded-2xl border border-gray-200 bg-gradient-to-r from-white to-blue-50 px-6 py-4 shadow-lg transition-transform hover:scale-[1.01] hover:shadow-xl">
+      <Typography className="text-base font-semibold text-gray-800">
+        {title}
+      </Typography>
+      <Typography className="text-sm font-medium text-blue-600">
+        Rating: <span className="ml-1 font-bold text-blue-800">{value}</span>
       </Typography>
     </div>
   );
