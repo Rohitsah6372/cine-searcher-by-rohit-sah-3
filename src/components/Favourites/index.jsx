@@ -9,11 +9,11 @@ const Favourites = () => {
 
   return (
     <div className="flex min-h-screen w-screen flex-col bg-gray-50 text-gray-800">
-      <div className="sticky top-0 z-10 bg-white shadow-sm">
+      <div className="flex h-16 items-center bg-white px-4 shadow-md">
         <Header />
       </div>
       <div className="flex flex-1 items-start justify-center px-4 py-6">
-        <div className="h-[80vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-white p-6 shadow-lg">
+        <div className="outline-none h-[80vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-gray-50 p-6 shadow-none ">
           {!isEmpty(favouriteList) ? (
             <>
               <h1 className="mb-4 pl-4 text-2xl font-semibold text-gray-700">

@@ -5,7 +5,7 @@ const NoDataToShow = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center">
+    <div className="outline-none flex h-full w-full flex-col items-center justify-center shadow-none">
       <NoData className="text-2xl" title={t("noMovieToShow")} />
       <p className="p-2">{t("trySearchingSomething")}</p>
     </div>

@@ -1,5 +1,5 @@
 import { Image } from "components/commons";
-import { Rating } from "neetoicons";
+import { RatingFilled } from "neetoicons";
 import { Button, Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 import useFavouritStore from "stores/useFavouriteStore";
@@ -33,9 +33,9 @@ const MovieDetails = ({ movieDetails }) => {
           {title}
         </Typography>
         <Button
-          icon={Rating}
+          icon={RatingFilled}
           style="tertiary"
-          className={`ml-4 rounded-full bg-transparent p-2 ${
+          className={`ml-2 rounded-full bg-transparent p-2 ${
             isMoviePresentInFavourite(imdbId)
               ? " text-yellow-400"
               : "text-gray-600"

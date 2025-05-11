@@ -69,7 +69,7 @@ const MovieList = ({
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden">
-      <div className="flex-1 overflow-y-auto rounded-md bg-white px-6 py-4 shadow">
+      <div className="flex-1 overflow-y-auto rounded-md bg-white px-6 py-4 ">
         <MovieData movieList={newMovieList} />
       </div>
       <div className="border-t bg-white px-4 py-3 shadow">
