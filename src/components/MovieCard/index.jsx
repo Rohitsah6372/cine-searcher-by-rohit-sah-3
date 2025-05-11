@@ -20,7 +20,7 @@ const MovieCard = ({ movie }) => {
     <div className="">
       <div
         className="bg-white-900 flex w-56
-      flex-col items-center  justify-between rounded-xl p-4 shadow-2xl"
+      flex-col items-center  justify-between rounded-xl p-2 shadow-2xl"
       >
         <div className="h-1/2 px-4">
           <Image {...{ title, poster }} />
