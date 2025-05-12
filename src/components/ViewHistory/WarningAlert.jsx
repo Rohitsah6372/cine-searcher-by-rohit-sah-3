@@ -26,7 +26,6 @@ const WarningAlert = ({ id, title, setIsDeleted, closeModal }) => {
   };
 
   return (
-    //not able to put the buttons in the right
     <Alert
       closeButton
       closeOnEsc

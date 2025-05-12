@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
+import { DEFAULT_PAGE_SIZE } from "components/constants";
 import { Filter, Search } from "neetoicons";
 import { Input } from "neetoui";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
+import routes from "routes";
+import { buildUrl } from "utils/url";
 
 import FilterList from "./MovieList/FilterList";
 
@@ -20,6 +24,7 @@ const SearchBar = ({
   const [searchTerm, setSearchTerm] = useState("");
   const autoInputRef = useRef(null);
   const filterButtonRef = useRef(null);
+  const history = useHistory();
 
   const { t } = useTranslation();
 
@@ -43,6 +48,20 @@ const SearchBar = ({
     setSearchTerm(newValue);
     onChange(newValue);
     setCurrentPageNumber(1);
+
+    const currentUrl = new URL(window.location.href);
+    const currentType = currentUrl.searchParams.get("type") || undefined;
+    const currentYear = currentUrl.searchParams.get("year") || undefined;
+
+    history.replace(
+      buildUrl(routes.root, {
+        search: newValue,
+        type: currentType,
+        year: currentYear,
+        page: "1",
+        pageSize: DEFAULT_PAGE_SIZE,
+      })
+    );
   };
 
   return (
