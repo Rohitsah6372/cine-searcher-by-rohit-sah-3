@@ -1,22 +1,16 @@
 import { useEffect, useRef } from "react";
 
 import { Typography } from "neetoui";
-import { isEmpty } from "ramda";
+import { isEmpty, pick } from "ramda";
 import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
-import { shallow } from "zustand/shallow";
 
 import Item from "./Item";
 
 const ViewHistory = () => {
   const { t } = useTranslation();
-  const { moviesStore, selectedMovieId, removeAll } = useMoviesStore(
-    state => ({
-      moviesStore: state.moviesStore,
-      selectedMovieId: state.selectedMovieId,
-      removeAll: state.removeAll,
-    }),
-    shallow
+  const { moviesStore, selectedMovieId, removeAll } = useMoviesStore(state =>
+    pick(["moviesStore", "selectedMovieId", "removeAll"], state)
   );
 
   const movieItemRefs = useRef({});

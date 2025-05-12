@@ -1,11 +1,13 @@
 import { Header } from "components/commons";
-import { isEmpty } from "ramda";
+import { isEmpty, pick } from "ramda";
 import useFavouritStore from "stores/useFavouriteStore";
 
 import FavouriteItem from "./FavouriteItem";
 
 const Favourites = () => {
-  const { favouriteList } = useFavouritStore();
+  const { favouriteList } = useFavouritStore(state =>
+    pick(["favouriteList"], state)
+  );
 
   return (
     <div className="flex min-h-screen w-screen flex-col bg-gray-50 text-gray-800">

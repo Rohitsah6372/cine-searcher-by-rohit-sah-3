@@ -3,18 +3,15 @@ import { useEffect } from "react";
 import { ErrorMessage, PageLoader } from "components/commons";
 import { useShowMovie } from "hooks/useQuery/useMovieApi";
 import { Modal } from "neetoui";
+import { pick } from "ramda";
 import useMoviesStore from "stores/useMovieStore";
-import { shallow } from "zustand/shallow";
 
 import MovieDetails from "./MovieDetails";
 
 const MovieModal = ({ id, setIsModalOpen }) => {
   const { data: movieDetails, isLoading, isError } = useShowMovie(id);
-  const { toggleInMovie } = useMoviesStore(
-    state => ({
-      toggleInMovie: state.toggleInMovie,
-    }),
-    shallow
+  const { toggleInMovie } = useMoviesStore(state =>
+    pick(["toggleInMovie"], state)
   );
 
   useEffect(() => {

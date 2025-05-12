@@ -1,17 +1,13 @@
 import { useState } from "react";
 
 import { Alert } from "@bigbinary/neetoui";
+import { pick } from "ramda";
 import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
-import { shallow } from "zustand/shallow";
 
 const WarningAlert = ({ id, title, setIsDeleted, closeModal }) => {
-  const { removeMovie } = useMoviesStore(
-    state => ({
-      removeMovie: state.removeMovie,
-    }),
-    shallow
-  );
+  const { removeMovie } = useMoviesStore(state => pick(["removeMovie"], state));
+
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
