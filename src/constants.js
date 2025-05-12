@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import * as yup from "yup";
 
 export const DEFAULT_IMG_URL =
@@ -12,7 +13,7 @@ export const createYearValidationSchema = t =>
       .test("year-range", t("yearMustBeValid"), value => {
         if (!value) return false;
         const year = parseInt(value);
-        const currentYear = new Date().getFullYear();
+        const currentYear = dayjs().year();
 
         return year >= 1895 && year <= currentYear;
       }),
