@@ -25,9 +25,9 @@ const FilterList = ({
   const updateUrlWithFilters = (year, movieType) => {
     const type =
       movieType.Movie && movieType.Series
-        ? "movie,series"
+        ? undefined
         : !movieType.Movie && !movieType.Series
-        ? "movie,series"
+        ? undefined
         : movieType.Movie
         ? "movie"
         : movieType.Series
@@ -36,9 +36,11 @@ const FilterList = ({
 
     const currentUrl = new URL(window.location.href);
     const currentPage = currentUrl.searchParams.get("page") || "1";
+    const currentSearchTerm = currentUrl.searchParams.get("s") || "";
 
     history.replace(
       buildUrl(routes.root, {
+        s: currentSearchTerm,
         type,
         year: year || undefined,
         page: currentPage,
