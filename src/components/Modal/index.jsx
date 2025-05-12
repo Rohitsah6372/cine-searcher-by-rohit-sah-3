@@ -6,7 +6,7 @@ import { Modal } from "neetoui";
 import { pick } from "ramda";
 import useMoviesStore from "stores/useMovieStore";
 
-import MovieDetails from "./MovieDetails";
+import Details from "./Details";
 
 const MovieModal = ({ id, setIsModalOpen }) => {
   const { data: movieDetails, isLoading, isError } = useShowMovie(id);
@@ -33,7 +33,7 @@ const MovieModal = ({ id, setIsModalOpen }) => {
       size="large"
       onClose={() => setIsModalOpen(false)}
     >
-      {isLoading ? <PageLoader /> : <MovieDetails {...{ movieDetails }} />}
+      {isLoading ? <PageLoader /> : <Details {...{ movieDetails }} />}
     </Modal>
   );
 };
