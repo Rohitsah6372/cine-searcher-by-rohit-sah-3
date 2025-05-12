@@ -7,7 +7,7 @@ import useFavouritStore from "stores/useFavouriteStore";
 
 import Genres from "./Genres";
 
-const MovieDetails = ({ movieDetails }) => {
+const Details = ({ movieDetails }) => {
   const { isMoviePresentInFavourite, addMovie, removeMovie } = useFavouritStore(
     state =>
       pick(["isMoviePresentInFavourite", "addMovie", "removeMovie"], state)
@@ -93,4 +93,4 @@ const MovieDetails = ({ movieDetails }) => {
   );
 };
 
-export default MovieDetails;
+export default Details;
