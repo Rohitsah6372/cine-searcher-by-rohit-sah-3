@@ -60,8 +60,12 @@ const MovieList = ({
 
     setTimeout(() => {
       setIsPageChanging(false);
-    }, 400);
+    }, 700);
   };
+
+  useEffect(() => {
+    routerHistory.replace(buildUrl(routes.root, {}));
+  }, []);
 
   if (isLoading || isPageChanging) return <PageLoader />;
 

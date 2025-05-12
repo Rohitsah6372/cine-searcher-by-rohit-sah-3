@@ -1,14 +1,18 @@
 import { Image } from "components/commons";
 import { RatingFilled } from "neetoicons";
 import { Button, Typography } from "neetoui";
+import { pick } from "ramda";
 import { useTranslation } from "react-i18next";
 import useFavouritStore from "stores/useFavouriteStore";
 
 import Genres from "./Genres";
 
 const MovieDetails = ({ movieDetails }) => {
-  const { isMoviePresentInFavourite, addMovie, removeMovie } =
-    useFavouritStore();
+  const { isMoviePresentInFavourite, addMovie, removeMovie } = useFavouritStore(
+    state =>
+      pick(["isMoviePresentInFavourite", "addMovie", "removeMovie"], state)
+  );
+
   const { t } = useTranslation();
 
   const {
