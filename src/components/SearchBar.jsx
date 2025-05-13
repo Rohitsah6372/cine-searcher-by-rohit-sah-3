@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
 
-import FilterList from "./MovieList/FilterList";
+import FilterList from "./FilterList";
 
 const SearchBar = ({
   onChange,

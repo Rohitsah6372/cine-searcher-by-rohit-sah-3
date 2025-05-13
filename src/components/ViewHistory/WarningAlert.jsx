@@ -5,7 +5,7 @@ import { pick } from "ramda";
 import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
 
-const WarningAlert = ({ id, title, setIsDeleted, closeModal }) => {
+const WarningAlert = ({ id, title, setIsDeleted, closeModal, isOpen }) => {
   const { removeMovie } = useMoviesStore(state => pick(["removeMovie"], state));
 
   const { t } = useTranslation();
@@ -26,9 +26,9 @@ const WarningAlert = ({ id, title, setIsDeleted, closeModal }) => {
       closeButton
       closeOnEsc
       closeOnOutsideClick
-      isOpen
       cancelButtonLabel={t("cancel")}
       className="right-align-alert-buttons"
+      isOpen={isOpen}
       isSubmitting={isSubmitting}
       message={t("deleteWarning")}
       submitButtonLabel={t("confirm")}

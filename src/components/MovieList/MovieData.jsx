@@ -1,6 +1,7 @@
 import { NoDataToShow } from "components/commons";
-import MovieCard from "components/MovieCard";
 import { isEmpty } from "ramda";
+
+import MovieCard from "./MovieCard";
 
 const MovieData = ({ movieList }) => (
   <div>

@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 
 import { DEFAULT_PAGE_INDEX } from "components/constants";
 import useDebounce from "hooks/useDebounce";
-import useFilterMovie from "hooks/useFilterMovie";
 import { useSearchedMovie } from "hooks/useQuery/useMovieApi";
 import useQueryParams from "hooks/useQueryParams";
 import { useHistory } from "react-router-dom";
 import routes from "routes";
 import { buildUrl } from "utils/url";
+
+import usefilterMovie from "./useFilterMovie";
 
 import updateUrlWithPage from "../utils/updateUrlWithPage";
 
@@ -37,7 +38,7 @@ export const useMovieList = ({
     isError,
   } = useSearchedMovie(debouncedSearchKey, currentPageNumber);
 
-  const newMovieList = useFilterMovie(movieList, year, movieType);
+  const newMovieList = usefilterMovie(movieList, year, movieType);
 
   const handlePageNavigation = newPage => {
     updateUrlWithPage(

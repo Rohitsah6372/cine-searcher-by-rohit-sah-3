@@ -27,7 +27,7 @@ const updateUrlWithPage = (
     })
   );
 
-  setTimeout(() => setIsPageChanging(false), 700);
+  setTimeout(() => setIsPageChanging(false), 1000);
 };
 
 export default updateUrlWithPage;
