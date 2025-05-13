@@ -40,7 +40,7 @@ const Item = React.forwardRef(({ id, selectedMovieId, title }, ref) => {
           ${isDeleted ? "rotate-180 text-red-600" : "rotate-0"}`}
         />
       </button>
-      {isOpen && <WarningAlert {...{ id, title, closeModal, setIsDeleted }} />}
+      <WarningAlert {...{ id, title, closeModal, setIsDeleted, isOpen }} />
     </div>
   );
 });
