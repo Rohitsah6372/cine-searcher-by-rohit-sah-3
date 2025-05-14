@@ -1,17 +1,19 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Typography } from "neetoui";
 import { isEmpty, pick } from "ramda";
 import { useTranslation } from "react-i18next";
 import useMoviesStore from "stores/useMovieStore";
 
+import ClearAllAlert from "./ClearAllAlert";
 import Item from "./Item";
 
 const ViewHistory = () => {
   const { t } = useTranslation();
-  const { moviesStore, selectedMovieId, removeAll } = useMoviesStore(state =>
-    pick(["moviesStore", "selectedMovieId", "removeAll"], state)
+  const { moviesStore, selectedMovieId } = useMoviesStore(state =>
+    pick(["moviesStore", "selectedMovieId"], state)
   );
+  const [isClearAllAlertOpen, setIsClearAllAlertOpen] = useState(false);
 
   const movieItemRefs = useRef({});
 
@@ -30,7 +32,7 @@ const ViewHistory = () => {
         <Typography className="font-bold">{t("viewHistoryTitle")}</Typography>
         <Typography
           className="cursor-pointer text-xs font-bold text-gray-500 hover:text-red-600"
-          onClick={removeAll}
+          onClick={() => setIsClearAllAlertOpen(true)}
         >
           {t("clearAll")}
         </Typography>
@@ -52,6 +54,10 @@ const ViewHistory = () => {
           {t("noHistoryAvailable")}
         </Typography>
       )}
+      <ClearAllAlert
+        closeModal={() => setIsClearAllAlertOpen(false)}
+        isOpen={isClearAllAlertOpen}
+      />
     </div>
   );
 };
