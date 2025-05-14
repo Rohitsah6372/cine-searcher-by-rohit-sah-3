@@ -10,12 +10,29 @@ const useMoviesStore = create(
       setSelectedMovieId: id => set({ selectedMovieId: id }),
       removeAll: () => set({ moviesStore: [] }),
       removeMovie: id =>
-        set(({ moviesStore }) => {
+        set(({ moviesStore, selectedMovieId }) => {
           const updatedMoviesStore = moviesStore.filter(
             movie => movie.imdbId !== id
           );
 
-          return { moviesStore: updatedMoviesStore };
+          let newSelectedMovieId = selectedMovieId;
+          if (id === selectedMovieId) {
+            const currentIndex = moviesStore.findIndex(
+              movie => movie.imdbId === id
+            );
+            if (currentIndex > 0) {
+              newSelectedMovieId = moviesStore[currentIndex - 1].imdbId;
+            } else if (updatedMoviesStore.length > 0) {
+              newSelectedMovieId = updatedMoviesStore[0].imdbId;
+            } else {
+              newSelectedMovieId = null;
+            }
+          }
+
+          return {
+            moviesStore: updatedMoviesStore,
+            selectedMovieId: newSelectedMovieId,
+          };
         }),
       toggleInMovie: movie =>
         set(({ moviesStore }) => {
